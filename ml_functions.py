@@ -8,6 +8,7 @@ import numpy as np
 from concurrent.futures import ProcessPoolExecutor
 _pool = ProcessPoolExecutor(max_workers=1)
 
+
 def compute_morgan_fingerprints(smiles: str, fingerprint_length: int, fingerprint_radius: int):
     from rdkit import Chem, DataStructs
     from rdkit.Chem import AllChem
@@ -60,6 +61,7 @@ class MorganFingerprintTransformer(BaseEstimator, TransformerMixin):
             
         return fps     
 
+
 def train_model(training_data):
     """Train a machine learning model using Morgan Fingerprints.
     
@@ -81,6 +83,7 @@ def train_model(training_data):
     ])
     
     return model.fit(training_data['smiles'], training_data['score'])
+
 
 def run_model(model, smiles):
     """Run a model on a list of smiles strings

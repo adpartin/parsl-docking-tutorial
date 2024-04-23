@@ -23,6 +23,7 @@ def smi_txt_to_pdb(smiles, pdb_file):
     writer.write(mol)
     writer.close()
 
+
 def set_element(input_pdb_file, output_pdb_file):
     tcl_script = "set_element.tcl"
     command = (
@@ -33,12 +34,14 @@ def set_element(input_pdb_file, output_pdb_file):
     return result
 
 
-def pdb_to_pdbqt(pdb_file, pdbqt_file, ligand= True):
+def pdb_to_pdbqt(pdb_file, pdbqt_file, ligand=True):
 
     script, flag = (
         ("prepare_ligand4.py", "l") if ligand else ("prepare_receptor4.py", "r")
     )
 
+    # breakpoint()
+    # print(Path(autodocktools_path))
     command = (
         f"{'python2.7'}"
         f" {Path(autodocktools_path) / 'MGLToolsPckgs/AutoDockTools/Utilities24' / script}"
@@ -47,6 +50,8 @@ def pdb_to_pdbqt(pdb_file, pdbqt_file, ligand= True):
         f" -U nphs_lps_waters"
     )
     result = subprocess.check_output(command.split(), encoding="utf-8")
+
+    print("subprocess executed")
 
 
 def make_autodock_vina_config(
@@ -98,4 +103,3 @@ def autodock_vina(config_file, num_cpu = 8):
     except Exception as e:
         print(f"Error: {e}")
         return None
-    
